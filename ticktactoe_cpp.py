@@ -90,5 +90,6 @@ Original file is located at
 # }
 #
 
-!g++ tic_tac_toe.cpp -o ttt
+g++ tic_tac_toe.cpp -o ttt
+./ttt
 
