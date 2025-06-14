@@ -1,39 +1,36 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
 int main() {
-    float num1, num2;
     char op;
+    float num1, num2;
 
-    printf("Simple Calculator\n");
-    printf("-----------------\n");
+    // Input operator and numbers
+    cout << "Enter an operator (+, -, *, /): ";
+    cin >> op;
 
-    printf("Enter first number: ");
-    scanf("%f", &num1);
+    cout << "Enter two numbers: ";
+    cin >> num1 >> num2;
 
-    printf("Enter operator (+ - * /): ");
-    scanf(" %c", &op);
-
-    printf("Enter second number: ");
-    scanf("%f", &num2);
-
+    // Perform calculation based on operator
     switch(op) {
         case '+':
-            printf("Result: %.2f\n", num1 + num2);
+            cout << "Result: " << num1 + num2 << endl;
             break;
         case '-':
-            printf("Result: %.2f\n", num1 - num2);
+            cout << "Result: " << num1 - num2 << endl;
             break;
         case '*':
-            printf("Result: %.2f\n", num1 * num2);
+            cout << "Result: " << num1 * num2 << endl;
             break;
         case '/':
-            if (num2 != 0)
-                printf("Result: %.2f\n", num1 / num2);
+            if(num2 != 0)
+                cout << "Result: " << num1 / num2 << endl;
             else
-                printf("Error: Division by zero.\n");
+                cout << "Error: Division by zero is not allowed." << endl;
             break;
         default:
-            printf("Invalid operator.\n");
+            cout << "Error: Invalid operator." << endl;
     }
 
     return 0;
