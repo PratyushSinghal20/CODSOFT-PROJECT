@@ -1,89 +1,105 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
-char board[3][3];
+char board[3][3] = {{'1', '2', '3'},
+                    {'4', '5', '6'},
+                    {'7', '8', '9'}};
+
 char current_marker;
 int current_player;
 
-void initialize_board() {
-    char cell = '1';
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++)
-            board[i][j] = cell++;
+void drawBoard() {
+    cout << "\n";
+    cout << " " << board[0][0] << " | " << board[0][1] << " | " << board[0][2] << "\n";
+    cout << "---|---|---\n";
+    cout << " " << board[1][0] << " | " << board[1][1] << " | " << board[1][2] << "\n";
+    cout << "---|---|---\n";
+    cout << " " << board[2][0] << " | " << board[2][1] << " | " << board[2][2] << "\n";
+    cout << "\n";
 }
 
-void print_board() {
-    printf("\n");
-    for (int i = 0; i < 3; i++) {
-        printf("| ");
-        for (int j = 0; j < 3; j++) {
-            printf("%c | ", board[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
-
-int place_marker(int slot) {
+bool placeMarker(int slot) {
     int row = (slot - 1) / 3;
     int col = (slot - 1) % 3;
 
     if (board[row][col] != 'X' && board[row][col] != 'O') {
         board[row][col] = current_marker;
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 int winner() {
+    // rows and columns
     for (int i = 0; i < 3; i++) {
-        if (board[i][0] == board[i][1] && board[i][1] == board[i][2])
-            return current_player;
-        if (board[0][i] == board[1][i] && board[1][i] == board[2][i])
-            return current_player;
+        if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) return current_player;
+        if (board[0][i] == board[1][i] && board[1][i] == board[2][i]) return current_player;
     }
-
-    if (board[0][0] == board[1][1] && board[1][1] == board[2][2])
-        return current_player;
-    if (board[0][2] == board[1][1] && board[1][1] == board[2][0])
-        return current_player;
+    // diagonals
+    if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) return current_player;
+    if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) return current_player;
 
     return 0;
 }
 
-void switch_player() {
-    current_marker = (current_marker == 'X') ? 'O' : 'X';
-    current_player = (current_player == 1) ? 2 : 1;
+void swapPlayerAndMarker() {
+    if (current_marker == 'X') {
+        current_marker = 'O';
+        current_player = 2;
+    } else {
+        current_marker = 'X';
+        current_player = 1;
+    }
 }
 
-int main() {
-    initialize_board();
-    current_marker = 'X';
-    current_player = 1;
+void game() {
+    cout << "TIC TAC TOE GAME\n";
+    cout << "----------------\n";
+    cout << "Player 1, choose your marker (X or O): ";
+    cin >> current_marker;
 
-    int slot, won = 0;
+    while (current_marker != 'X' && current_marker != 'O') {
+        cout << "Invalid marker! Choose X or O: ";
+        cin >> current_marker;
+    }
+
+    current_player = 1;
+    drawBoard();
+
+    int player_won;
 
     for (int i = 0; i < 9; i++) {
-        print_board();
-        printf("Player %d (%c), enter your move (1-9): ", current_player, current_marker);
-        scanf("%d", &slot);
+        int slot;
+        cout << "Player " << current_player << ", enter your slot (1-9): ";
+        cin >> slot;
 
-        if (slot < 1 || slot > 9 || !place_marker(slot)) {
-            printf("Invalid move! Try again.\n");
+        if (slot < 1 || slot > 9) {
+            cout << "Invalid slot! Try again.\n";
             i--;
             continue;
         }
 
-        won = winner();
-        if (won != 0) {
-            print_board();
-            printf("Player %d wins!\n", current_player);
-            return 0;
+        if (!placeMarker(slot)) {
+            cout << "Slot already taken! Try again.\n";
+            i--;
+            continue;
         }
 
-        switch_player();
+        drawBoard();
+
+        player_won = winner();
+        if (player_won == 1 || player_won == 2) {
+            cout << "🎉 Player " << player_won << " wins the game!\n";
+            return;
+        }
+
+        swapPlayerAndMarker();
     }
 
-    print_board();
-    printf("It's a draw!\n");
+    cout << "It's a draw! 🤝\n";
+}
+
+int main() {
+    game();
     return 0;
 }
