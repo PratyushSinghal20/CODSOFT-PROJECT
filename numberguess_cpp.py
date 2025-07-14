@@ -12,7 +12,7 @@ int main() {
     srand(time(0));
 
     do {
-        number = rand() % 100 + 1; // random number between 1 and 100
+        number = rand() % 100 + 1; 
         attempts = 0;
 
         cout << "Welcome to the Number Guessing Game!" << endl;
