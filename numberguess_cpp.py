@@ -8,7 +8,7 @@ int main() {
     int number, guess, attempts;
     char playAgain;
 
-    // Seed the random number generator
+    
     srand(time(0));
 
     do {
