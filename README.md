@@ -47,8 +47,8 @@ A two-player console game implemented in C++, featuring a 3x3 board and win-chec
 
 ## 📷 Demo
 
-- 🎥 [LinkedIn Project Demo Video](YourLinkedInPostLink)
-- 💻 [GitHub Live Repository](YourGitHubRepoLink)
+- 🎥 [LinkedIn Project Demo Video](https://www.linkedin.com/in/pratyush-singhal-60773031b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+- 💻 [GitHub Live Repository](https://github.com/PratyushSinghal20/CODSOFT-PROJECT/tree/main)
 
 ---
 
